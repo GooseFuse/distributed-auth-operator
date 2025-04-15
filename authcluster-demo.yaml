@@ -1,0 +1,8 @@
+apiVersion: auth.pure-o.pl/v1
+kind: AuthCluster
+metadata:
+  name: demo-auth
+  namespace: default
+spec:
+  nodeCount: 3
+  redisURL: redis:6379

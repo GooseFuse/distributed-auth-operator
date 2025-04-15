@@ -1,0 +1,9 @@
+apiVersion: auth.pure-o.pl/v1
+kind: AuthCluster
+metadata:
+  labels:
+    app.kubernetes.io/name: distributed-auth-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: authcluster-sample
+spec:
+  # TODO(user): Add fields here
