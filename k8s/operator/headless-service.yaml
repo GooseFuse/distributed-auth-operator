@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: headless-service
+spec:
+  clusterIP: None
+  selector:
+    app: auth-node
+  ports:
+    - name: grpc
+      port: 8080
+      targetPort: 8080

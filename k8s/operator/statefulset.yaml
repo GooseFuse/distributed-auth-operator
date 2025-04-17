@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: auth-node
+spec:
+  serviceName: headless-service
+  replicas: 3
+  selector:
+    matchLabels:
+      app: auth-node
+  template:
+    metadata:
+      labels:
+        app: auth-node
+    spec:
+      containers:
+        - name: authnode
+          image: distributed-auth-system:latest
+          imagePullPolicy: Never
+          env:
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: REDIS_URL
+              value: redis:6379
+            - name: PEER_LIST
+              value: "auth-node-0.headless-service:8080,auth-node-1.headless-service:8080,auth-node-2.headless-service:8080"
+            - name: PORT
+              value: "8080"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

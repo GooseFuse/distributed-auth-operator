@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-operator
+  template:
+    metadata:
+      labels:
+        app: auth-operator
+    spec:
+      containers:
+        - name: manager
+          image: distributed-auth-operator:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - /app/manager
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+            - containerPort: 8080
+            - containerPort: 9443

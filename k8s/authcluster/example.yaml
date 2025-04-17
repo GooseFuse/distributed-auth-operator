@@ -1,0 +1,7 @@
+apiVersion: auth.mycorp.io/v1
+kind: AuthCluster
+metadata:
+  name: auth-cluster
+spec:
+  nodeCount: 3
+  redisURL: redis://redis:6379

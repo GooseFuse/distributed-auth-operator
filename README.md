@@ -26,25 +26,6 @@ Each `AuthCluster` CR results in:
 - One shared `ConfigMap` with peer addresses
 - One `PersistentVolumeClaim` per node for LevelDB storage
 
----
-
-## 📦 CRD Example
-
-```yaml
-apiVersion: auth.pure-o.pl/v1
-kind: AuthCluster
-metadata:
-  name: demo-auth
-  namespace: default
-spec:
-  nodeCount: 3
-  redisURL: redis://redis:6379
-```
-
-Apply with:
-```bash
-kubectl apply -f authcluster-demo.yaml
-```
 
 ---
 
@@ -59,7 +40,8 @@ kubectl apply -f authcluster-demo.yaml
 ```bash
 make install      # install CRDs
 make run          # run controller locally
-kubectl apply -f authcluster-demo.yaml
+kubectl apply -f kubectl-apply/redis-deployment.yaml
+kubectl apply -f kubectl-apply/authcluster-demo.yaml
 ```
 
 Check resources:
